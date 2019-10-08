@@ -11,7 +11,9 @@ colors = [
 	'green',
 	'blue'
 ]
-state = {}
+state = {
+	"j":0
+}
 
 
 def create_ball(state):
@@ -41,10 +43,13 @@ def dmove(state):
 	state['ball'].move( dx, -dy)
 
 def trajectory(state):
-    p = gr.Point(15 + state['x'], 580 - state['y'])
-    p.setOutline(state['color'])
-    p.setFill(state['color'])
-    p.draw(w)
+	state['j'] +=1
+	if state['j'] == 10:
+		p = gr.Point(15 + state['x'], 580 - state['y'])
+		p.setOutline(state['color'])
+		p.setFill(state['color'])
+		p.draw(w)
+		state['j'] = 0
 
 def move(state):
 	while ( (state['x'] < 950) and (state['y'] > -1) ) :
