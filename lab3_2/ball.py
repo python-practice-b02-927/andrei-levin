@@ -2,28 +2,46 @@ import graphics as gr
 import math as m
 
 g = 9.8
-speed = {
-	"vx" : 0,
-	"vy" : 0
+dt = 0.001
+state = {
+	"x": 0,
+	"y": 0
 }
 
-def create_ball():
+
+def create_ball(state):
 	ball = gr.Circle(gr.Point(15, 580), 7)
 	ball.setFill('red')
 	ball.draw(w)
+	state['ball'] = ball
+	return state
 
-def conditional(speed):
+def conditional(state):
 	print('force:')
 	v = int(input())
 	print('angle:')
 	fi = int(input()) *m.pi/180
-	speed['vx'] = v*m.cos(fi)
-	speed['vy'] = v*m.sin(fi)
+	state['vx'] = v*m.cos(fi)
+	state['vy'] = v*m.sin(fi)
 
+def dmove(state):
+	dx = state['vx'] * dt
+	dy = state['vy'] * dt
+	state['x'] += dx 
+	state['y'] += dy
+	state['vx'] += 0
+	state['vy'] += -g * dt
+	state['ball'].move( dx, -dy)
 
-def main():
-	conditional(speed)
-	print(speed)
+def move(state):
+	while ( (state['x'] < 950) and (state['y'] > -1) ) :
+		dmove(state)
+
+def main(state):
+	conditional(state)
+	create_ball(state)
+	move(state)
+
 
 
 
@@ -31,8 +49,7 @@ def main():
 
 w = gr.GraphWin("Window",1000, 600)
 
-main()
-create_ball()
+main(state)
 
 
 w.getMouse()
