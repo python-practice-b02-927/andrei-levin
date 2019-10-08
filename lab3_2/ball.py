@@ -11,10 +11,7 @@ colors = [
 	'green',
 	'blue'
 ]
-state = {
-	"x": 0,
-	"y": 0
-}
+state = {}
 
 
 def create_ball(state):
@@ -25,9 +22,9 @@ def create_ball(state):
 	return state
 
 def conditional(state):
-	print('force:')
+	print('force (~70):')
 	v = int(input())
-	print('angle:')
+	print('angle (degrees):')
 	fi = int(input()) *m.pi/180
 	state['vx'] = v*m.cos(fi)
 	state['vy'] = v*m.sin(fi)
@@ -57,7 +54,7 @@ def move(state):
 def main(state):
 	print('Enter the number of balls (<6):')
 	k = int(input())
-	print('Viscosity:')
+	print('Viscosity (~0.1):')
 	viscosity = input()
 	if (k < 6):
 		for i in range(k):
