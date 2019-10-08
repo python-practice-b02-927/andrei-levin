@@ -2,7 +2,7 @@ import graphics as gr
 import math as m
 
 g = 9.8
-k = 0.1
+viscosity = 0.1
 dt = 0.001
 colors = [
 	'red',
@@ -39,8 +39,8 @@ def dmove(state):
 	dy = state['vy'] * dt
 	state['x'] += dx 
 	state['y'] += dy
-	state['vx'] += 0
-	state['vy'] += -g * dt
+	state['vx'] += -viscosity*dx
+	state['vy'] += -g * dt - viscosity*dy
 	state['ball'].move( dx, -dy)
 
 def trajectory(state):
@@ -57,6 +57,8 @@ def move(state):
 def main(state):
 	print('Enter the number of balls (<6):')
 	k = int(input())
+	print('Viscosity:')
+	viscosity = input()
 	if (k < 6):
 		for i in range(k):
 			state['color'] = colors[i]
